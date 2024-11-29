@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container my-5">
+      <!-- Form -->
+      <form id="multiStepForm">
+        <ul class="nav nav-pills" id="formTabs">
+          <li class="nav-item">
+            <a class="nav-link active" id="step1-tab" data-bs-toggle="pill"
+              href="#step1">Step 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="step2-tab" data-bs-toggle="pill"
+              href="#step2">Step 2</a>
+          </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+          <!-- Step 1: Connection Info -->
+          <div class="tab-pane fade show active" id="step1">
+            <div class="mb-3">
+              <label for="host" class="form-label">Host</label>
+              <input type="text" class="form-control" id="host"
+                placeholder="Enter Host" required value="smtppro.zoho.com">
+            </div>
+            <fieldset class="mb-3">
+              <legend class="form-label">Select Port</legend>
+              <div class="d-flex gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="port"
+                    id="465" value="465" checked>
+                  <label class="form-check-label" for="465">465</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="port"
+                    id="587" value="587">
+                  <label class="form-check-label" for="587">587</label>
+                </div>
+              </div>
+            </fieldset>
+            <div class="mb-3">
+              <label for="user_email" class="form-label">Email</label>
+              <input type="text" class="form-control" id="user_email"
+                placeholder="Enter User Email" required
+                value="support@bitapps.pro">
+            </div>
+            <div class="mb-3">
+              <label for="pass" class="form-label">Password</label>
+              <input type="password" class="form-control" id="pass"
+                placeholder="Enter Password" required value="GsjNzh1c1RUd">
+            </div>
+            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="pill"
+              href="#step2">Next</button> -->
+            <!-- <a class="nav-link" id="step2-btn" data-bs-toggle="pill"
+              href="/#step2">Next</a> -->
+          </div>
+
+          <!-- Step 2: Email Info -->
+          <div class="tab-pane fade" id="step2">
+            <div class="mb-3">
+              <label for="to" class="form-label">From</label>
+              <input type="email" class="form-control" id="to"
+                placeholder="Enter Your Email" required
+                value="work.shimul@gmail.com">
+            </div>
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject</label>
+              <input type="text" class="form-control" id="subject"
+                placeholder="Enter Subject" required value="Test SMTP Server">
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="4"
+                placeholder="Enter Your Message"
+                required>Hello Gmail Team</textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+    document.getElementById('multiStepForm').addEventListener('submit', function (event) {
+      document.querySelector('button[type="submit"]').disabled = true;
+      document.querySelector('button[type="submit"]').innerText = "Please wait.....";
+      event.preventDefault(); // Prevent form submission
+
+      // Gather form data
+      const formData = {
+        from: document.getElementById('user_email').value,
+        to: document.getElementById('to').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value,
+        smtp: {
+          host: document.getElementById('host').value,
+          port: document.querySelector('input[name="port"]:checked').value,
+          user: document.getElementById('user_email').value,
+          pass: document.getElementById('pass').value,
+        }
+      };
+
+      // console.log('Form data:', formData);
+
+
+      // Simulate sending the data to the server (e.g., using fetch)
+      fetch('https://nodemailer-server-zr3y.onrender.com/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log('Server Response:', data);
+          if(data.status){
+            alert('Email Send Successfully');
+            document.querySelector('button[type="submit"]').disabled = false;
+            document.querySelector('button[type="submit"]').innerText = "Submit";
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        //   alert('An error occurred while submitting the form.');
+        });
+    });
+    
+  </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
