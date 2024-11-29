@@ -32,7 +32,8 @@
             <div class="mb-3">
               <label for="host" class="form-label">Host</label>
               <input type="text" class="form-control" id="host"
-                placeholder="Enter Host" required value="smtppro.zoho.com">
+                placeholder="Enter Host" required>
+                <p class="pt-1 small">Test Host: smtppro.zoho.com</p>
             </div>
             <fieldset class="mb-3">
               <legend class="form-label">Select Port</legend>
@@ -52,13 +53,14 @@
             <div class="mb-3">
               <label for="user_email" class="form-label">Email</label>
               <input type="text" class="form-control" id="user_email"
-                placeholder="Enter User Email" required
-                value="support@bitapps.pro">
+                placeholder="Enter User Email" required>
+                <p class="pt-1 small">Test Email: support@bitapps.pro</p>
             </div>
             <div class="mb-3">
               <label for="pass" class="form-label">Password</label>
               <input type="password" class="form-control" id="pass"
-                placeholder="Enter Password" required value="GsjNzh1c1RUd">
+                placeholder="Enter Password" required>
+                <p class="pt-1 small">Test Password: GsjNzh1c1RUd</p>
             </div>
             <!-- <button type="button" class="btn btn-primary" data-bs-toggle="pill"
               href="#step2">Next</button> -->
@@ -117,7 +119,7 @@
 
 
       // Simulate sending the data to the server (e.g., using fetch)
-      fetch('https://nodemailer-server-zr3y.onrender.com/send-email', {
+      fetch('http://localhost:3000/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
